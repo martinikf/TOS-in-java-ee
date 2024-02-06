@@ -1,0 +1,33 @@
+Platforma pro nabídku témat závěrečných prací
+
+--
+
+Před spuštením musí existovat:
+	JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
+	@PersistenceContext(unitName = "jpa-tos-db")
+
+	JavaMail Session: mail/tos
+	JMS destination: newTopicTopic
+	JDBC: jdbc/tos
+--
+
+Aplikace je rozdělena na 2 části TOS-EJB (backend) a TOS-WAR (frontend)
+
+V TOS-EJB se nachází rozhraní popisující nabízenou funkčnost backendu, beans (logika), modely, rest api
+
+V TOS-WAR se nachází .xhtml soubory, css, controllery, validátory
+
+--
+
+Funkce:
+
+Kdokoliv ---> prohlížení tématu a komentářů 	
+	  |-> použití rest API pro získání nabízených témat
+
+Registrace -> Přihlášení-----> Uživatel -> psaní komentářů, odhlášení
+			|
+			|----->	Editor ---> vytvoření tématu -> automatické zaslání notifikace
+			|		|-> smazání tématu
+			|		|-> vytovření/smazání programu
+			|
+			|----->	Student -> zvolení studovaného programu pro notifikace

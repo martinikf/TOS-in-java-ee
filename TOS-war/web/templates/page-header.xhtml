@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <body>
+        <ui:composition>
+           <h:graphicImage library="defaultTheme" name="images/up_prf_logo_300.png" alt="UP Logo" width="50"/>
+
+            <h1>TOS</h1>
+            
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.xhtml">Topics</a>
+                    </li>
+                    
+                    <ui:fragment rendered="#{userController.isEditor()}">
+                        <li>                    
+                            <a href="topicCreate.xhtml">New topic</a>
+                        </li>
+                        <li>
+                            <a href="programme.xhtml">Programmes</a>
+                        </li>
+                    </ui:fragment>
+                    
+                    <ui:fragment rendered="#{userController.isStudent()}">
+                        <li>                    
+                            <a href="notifications.xhtml">Notifications</a>
+                        </li>
+                    </ui:fragment>
+                    
+                     <ui:fragment rendered="#{userController.user == null}">
+                        <li><a href="register.xhtml">Register</a></li>
+                        <li><a href="login.xhtml">Login</a></li>
+                    </ui:fragment>
+                    
+                    <ui:fragment rendered="#{userController.user != null}">
+                        <li><a href="login.xhtml">Logout</a></li>
+                    </ui:fragment>
+                    
+                    <li><a href="api.xhtml">API</a></li>
+                </ul>
+            </nav>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <ui:composition template="./templates/master-template.xhtml">
+            <f:metadata>
+                <f:viewParam name="group" value="#{topicController.group}" />
+            </f:metadata>
+
+            <ui:define name="top">
+                <ui:include src="./templates/page-header.xhtml "/>
+            </ui:define>
+
+            <ui:define name="content">
+                <h2>
+                    Topics
+                </h2>
+
+                <ui:repeat value="#{topicController.supervisors}" var="user">
+                    <section class="user_topics">
+                        <h3>#{user.firstname} #{user.lastname} (#{user.email})</h3>
+                        <ui:repeat value="#{topicController.getTopicsBy(user.email)}" var="topic">
+                            <article class="topic_preview">
+                                <a href="topicDetail.xhtml?id=#{topic.id}">
+                                    <h4>
+                                        #{topic.name}
+                                    </h4>
+                                </a>
+                                <ul class="programme_boxes">
+                                    <ui:repeat value="#{topic.programmes}" var="programme">
+                                        <li class="programme_box">#{programme.name}</li>
+                                    </ui:repeat>
+                                </ul>
+                                <p>#{topic.text}</p>
+                            </article>
+                        </ui:repeat>
+                    </section>
+                </ui:repeat>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+
+header {
+    display: flex;
+    border-bottom: 2px black solid;
+}
+
+nav ul{
+    list-style: none;
+
+}
+
+nav ul li{
+    display: inline;
+    margin-right: 15px;
+}
+
+article {
+
+}

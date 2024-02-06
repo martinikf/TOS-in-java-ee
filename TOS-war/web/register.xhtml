@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/master-template.xhtml">
+
+    <ui:define name="top">
+        <ui:include src="./templates/page-header.xhtml"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>
+            Register
+        </h2>
+
+        <ui:fragment rendered="#{userController.user == null}">
+            <h:form>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="email">Email:</h:outputLabel>
+                    <h:inputText id="email" value="#{registerController.email}"
+                                 required="true" requiredMessage="Email name is mandatory."
+                                 validator="#{uniqueLoginValidator.validate}">
+                    </h:inputText>
+
+
+                    <h:outputLabel for="firstname">Firstname:</h:outputLabel>
+                    <h:inputText id="firstname" value="#{registerController.firstname}"
+                                 required="true" requiredMessage="Firstname name is mandatory.">
+                    </h:inputText>
+
+                    <h:outputLabel for="lastname">Lastname:</h:outputLabel>
+                    <h:inputText id="lastname" value="#{registerController.lastname}"
+                                 required="true" requiredMessage="Lastname name is mandatory.">
+                    </h:inputText>
+
+                    <h:selectOneRadio value="#{registerController.role}">
+                        <f:selectItem itemValue="student" itemLabel="student" />
+                        <f:selectItem itemValue="editor" itemLabel="editor" />
+                    </h:selectOneRadio> <br/>
+
+                    <h:outputLabel for="password">Password</h:outputLabel>
+                    <h:inputSecret id="password" value="#{registerController.password}"
+                                   binding="#{passwordComponent}">
+                        <f:validator validatorId="passwordStrengthValidator" />
+                    </h:inputSecret>    
+
+                    <h:outputLabel for="confirmPassword">Confirm password</h:outputLabel>
+                    <h:inputSecret id="confirmPassword" value="#{registerController.confirmPassword}">
+                        <f:validator validatorId="confirmPasswordValidator" />
+                        <f:attribute name="passwordComponentBinding" value="#{passwordComponent}" />
+                    </h:inputSecret>
+                </h:panelGrid>
+                <h:messages style="color:red;" showDetail="true"/>
+                <h:commandButton type="submit" value="Register" action="#{registerController.createUser()}"/>
+            </h:form>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{userController.user != null}">
+            <h2>Logged in</h2>
+        </ui:fragment>
+
+    </ui:define>
+</ui:composition>
